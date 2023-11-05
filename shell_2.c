@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
+#include "main.h"
 
 /**
  * main - Entry point for a simple UNIX command-line interpreter.
@@ -11,6 +6,8 @@
  * Description:
  * - Initializes an infinite loop to continuously prompt for
  *    and process user commands.
+ * @argc: number of arguments
+ * @argv: array of arguments
  * - Displays the "#cisfun$ " prompt.
  * - Reads user input into the 'input' array, removing the newline character.
  * - Forks a child process to execute the user's command and distinguishes
@@ -40,33 +37,7 @@ int main(int argc, char *argv[])
 	{
 		for (int i = 1; i < argc; i++)
 		{
-			/* Fork a child process */
-			pid = fork();
-			if (pid < 0)
-			{
-				perror("Fork failed");
-				exit(1);
-			} else if (pid == 0)
-			{
-				/* In the child process */
-				/* Execute the command using execve */
-				/* Allocate memory for the args array */
-				char *args[2];
-				args[0] = argv[i];
-				args[1] = NULL;
-
-				execve(argv[i], args, NULL);
-
-				/* If execve returns, it means the command was not found */
-				perror("./shell");
-			       	exit(1);
-			} else
-			{
-				/* In the parent process */
-				int status;
-				
-				waitpid(pid, &status, 0);
-			}
+			execute_command(argv[i]);
 		}
 	}
 
@@ -84,42 +55,8 @@ int main(int argc, char *argv[])
 		/* Remove the newline character from the input */
 		input[strcspn(input, "\n")] = '\0';
 
-		/* Fork a child process */
-		pid = fork();
-
-		if (pid < 0)
-		{
-			perror("Fork failed");
-			exit(1);
-		} else if (pid == 0)
-		{
-			/* In the child process */
-			/* Execute the command using execve */
-			/* Allocate memory for the args array */
-			char *args[10];
-			
-			/*input token as first command*/
-			args[0] = strtok(input, " ");
-			
-			int i = 1;
-			while (i < 10 && (args[i] = strtok(NULL, " "))) 
-			{
-				i++;
-			}
-
-			args[i] = NULL;
-
-			execve(args[0], args, NULL);
-			/* If execve returns, it means the command was not found */
-			perror("./shell");
-			exit(1);
-		} else
-		{
-			/* In the parent process */
-			int status;
-
-			waitpid(pid, &status, 0);
-		}
+		/* Execute command */
+		execute_command(input);
 	}
 
 	return (0);

@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include "main.h"
 
 /**
  * main - Entry point for a simple UNIX command-line interpreter.
@@ -51,33 +52,9 @@ int main(void)
 		/* Remove the newline character from the input */
 		input[strcspn(input, "\n")] = '\0';
 
-		/* Fork a child process */
-		pid = fork();
+		/* Execute command */
+		execute_command(input);
 
-		if (pid < 0)
-		{
-			perror("Fork failed");
-			exit(1);
-		} else if (pid == 0)
-		{
-			/* In the child process */
-			/* Execute the command using execve */
-			/* Allocate memory for the args array */
-			char *args[2];
-			args[0] = input;
-			args[1] = NULL;
-
-			execve(input, args, NULL);
-			/* If execve returns, it means the command was not found */
-			perror("./shell");
-			exit(1);
-		} else
-		{
-			/* In the parent process */
-			int status;
-
-			waitpid(pid, &status, 0);
-		}
 	}
 
 	return (0);
