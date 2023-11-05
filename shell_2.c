@@ -31,10 +31,44 @@
  * Return:
  * - Returns 0 upon successful execution.
  */
-int main(void)
+int main(int argc, char *argv[])
 {
 	char input[100];
 	pid_t pid;
+
+	if (argc > 1)
+	{
+		for (int i = 1; i < argc; i++)
+		{
+			/* Fork a child process */
+			pid = fork();
+			if (pid < 0)
+			{
+				perror("Fork failed");
+				exit(1);
+			} else if (pid == 0)
+			{
+				/* In the child process */
+				/* Execute the command using execve */
+				/* Allocate memory for the args array */
+				char *args[2];
+				args[0] = argv[i];
+				args[1] = NULL;
+
+				execve(argv[i], args, NULL);
+
+				/* If execve returns, it means the command was not found */
+				perror("./shell");
+			       	exit(1);
+			} else
+			{
+				/* In the parent process */
+				int status;
+				
+				waitpid(pid, &status, 0);
+			}
+		}
+	}
 
 	while (1)
 	{
@@ -68,7 +102,7 @@ int main(void)
 			args[0] = strtok(input, " ");
 			
 			int i = 1;
-			while (i < 10 && (args[i] = strtok(NUL, " "))) 
+			while (i < 10 && (args[i] = strtok(NULL, " "))) 
 			{
 				i++;
 			}

@@ -36,6 +36,7 @@ int main(void)
 	char input[100];
 	pid_t pid;
 
+	/* Displays #cisfun$ each time a command has been executed */
 	while (1)
 	{
 		/* Display the prompt */
