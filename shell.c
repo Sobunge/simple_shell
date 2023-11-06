@@ -1,9 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
 #include "main.h"
 
 /**
@@ -12,6 +6,8 @@
  * Description:
  * - Initializes an infinite loop to continuously prompt for
  *    and process user commands.
+ * @argc: number of arguments
+ * @argv: array of arguments
  * - Displays the "#cisfun$ " prompt.
  * - Reads user input into the 'input' array, removing the newline character.
  * - Forks a child process to execute the user's command and distinguishes
@@ -32,12 +28,20 @@
  * Return:
  * - Returns 0 upon successful execution.
  */
-int main(void)
+int main(int argc, char *argv[])
 {
 	char input[100];
-	pid_t pid;
 
-	/* Displays #cisfun$ each time a command has been executed */
+	if (argc > 1)
+	{
+		int i;
+
+		for (i = 1; i < argc; i++)
+		{
+			execute_command(argv[i]);
+		}
+	}
+
 	while (1)
 	{
 		/* Display the prompt */
@@ -54,7 +58,6 @@ int main(void)
 
 		/* Execute command */
 		execute_command(input);
-
 	}
 
 	return (0);
