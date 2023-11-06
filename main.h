@@ -9,5 +9,6 @@
 #include <sys/wait.h>
 
 void execute_command(char input[]);
+void execute_command_2(const char *input);
 
 #endif
