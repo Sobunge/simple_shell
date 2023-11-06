@@ -18,15 +18,14 @@ void execute_command(char input[])
 	} else if (pid == 0)
 	{
 		/* In the child process */
-		/* Execute the command using execve */
-		/* Allocate memory for the args array */
-		char *args[2];
+		char *args[64];
+		int i = 0;
 
-		args[0] = input;
-		args[1] = NULL;
-
-		execve(input, args, NULL);
-		/* If execve returns, it means the command was not found */
+		handle_path(input, args, i);
+		/*
+		* If the loop completes,
+		* the command was not found in any directory in PATH
+		*/
 		perror("./shell");
 		exit(1);
 	} else

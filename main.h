@@ -9,5 +9,7 @@
 #include <sys/wait.h>
 
 void execute_command(char input[]);
+void handle_path(char input[], char *args[], int i);
+void path(char *token, char *args[]);
 
 #endif
