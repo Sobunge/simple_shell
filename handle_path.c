@@ -27,7 +27,7 @@ void handle_path(char input[], char *args[], int i)
 	{
 		/* The command contains a / character, so it's already a full path */
 		execve(args[0], args, NULL);
-		perror("execve failed");
+		perror("./shell");
 		exit(1);
 	}
 }

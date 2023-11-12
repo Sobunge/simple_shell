@@ -4,6 +4,7 @@
  * path - a function that handles the path
  *
  * @token: token variable
+ * @args: args variable
  */
 void path(char *token, char *args[])
 {
@@ -28,8 +29,8 @@ void path(char *token, char *args[])
 		/* Check if the command exists in the current directory */
 		if (access(commandPath, X_OK) == 0)
 		{
-			execve(commandPath, args, NULL);
-			perror("execve failed");
+			execve(commandPath, args, NULL);	
+			perror("./shell");
 			exit(1);
 		}
 

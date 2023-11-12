@@ -8,9 +8,14 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-void execute_command(char input[])
+/* Declaring the external environ variable */
+extern char **environ;
+
+void execute_command(char input[]);
 void execute_command_2(const char *input);
 void handle_path(char input[], char *args[], int i);
 void path(char *token, char *args[]);
+void exit_shell(void);
+void print_environment(void);
 
 #endif

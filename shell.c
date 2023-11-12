@@ -38,7 +38,12 @@ int main(int argc, char *argv[])
 
 		for (i = 1; i < argc; i++)
 		{
-			execute_command(argv[i]);
+			if (strcmp(argv[i], "exit") == 0)
+				exit_shell();
+			else if (strcmp(argv[i], "env") == 0)
+				print_environment();
+			else
+				execute_command(argv[i]);
 		}
 	}
 
@@ -49,15 +54,18 @@ int main(int argc, char *argv[])
 
 		/* Read the user's input */
 		if (fgets(input, sizeof(input), stdin) == NULL)
-		{
 			break;
-		}
 
 		/* Remove the newline character from the input */
 		input[strcspn(input, "\n")] = '\0';
-
-		/* Execute command */
-		execute_command(input);
+		/* Checks if the input is exit */
+		if (strcmp(input, "exit") == 0)
+			exit_shell();
+		else if (strcmp(input, "env") == 0)
+			print_environment();
+		else
+			/* Execute command */
+			execute_command(input);
 	}
 
 	return (0);
