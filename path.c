@@ -29,7 +29,7 @@ void path(char *token, char *args[])
 		/* Check if the command exists in the current directory */
 		if (access(commandPath, X_OK) == 0)
 		{
-			execve(commandPath, args, NULL);	
+			execve(commandPath, args, NULL);
 			perror("./shell");
 			exit(1);
 		}

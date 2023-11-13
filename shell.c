@@ -30,7 +30,7 @@
  */
 int main(int argc, char *argv[])
 {
-	char input[100];
+	char *input;
 
 	if (argc > 1)
 	{
@@ -49,23 +49,20 @@ int main(int argc, char *argv[])
 
 	while (1)
 	{
+
 		/* Display the prompt */
 		printf("#cisfun$ ");
+		fflush(stdout);
 
-		/* Read the user's input */
-		if (fgets(input, sizeof(input), stdin) == NULL)
+		input = custom_getline();
+
+		if (input)
+		{
+			handle_user_input(input);
+		} else
+		{
 			break;
-
-		/* Remove the newline character from the input */
-		input[strcspn(input, "\n")] = '\0';
-		/* Checks if the input is exit */
-		if (strcmp(input, "exit") == 0)
-			exit_shell();
-		else if (strcmp(input, "env") == 0)
-			print_environment();
-		else
-			/* Execute command */
-			execute_command(input);
+		}
 	}
 
 	return (0);
