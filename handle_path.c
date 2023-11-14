@@ -12,11 +12,11 @@ void handle_path(char input[], char *args[], int i)
 	/* Tokenize the input */
 	char *token;
 
-	token = strtok(input, " \t\n");
+	token = _strtok(input, " \t\n");
 	while (token != NULL)
 	{
 		args[i++] = token;
-		token = strtok(NULL, " \t\n");
+		token = _strtok(NULL, " \t\n");
 	}
 	args[i] = NULL;
 

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
-
+#include "main.h"
 /**
  *_strtok - Custom implementation of strtok.
  *

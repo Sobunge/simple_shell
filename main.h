@@ -18,5 +18,6 @@ void exit_shell(void);
 void print_environment(void);
 char *custom_getline(void);
 void handle_user_input(char *input);
+char *_strtok(char *str, const char *delim);
 
 #endif
