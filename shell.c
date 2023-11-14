@@ -28,6 +28,7 @@
  * Return:
  * - Returns 0 upon successful execution.
  */
+
 int main(int argc, char *argv[])
 {
 	char *input;
@@ -38,12 +39,7 @@ int main(int argc, char *argv[])
 
 		for (i = 1; i < argc; i++)
 		{
-			if (strcmp(argv[i], "exit") == 0)
-				exit_shell();
-			else if (strcmp(argv[i], "env") == 0)
-				print_environment();
-			else
-				execute_command(argv[i]);
+			handle_user_input(argv[i]);
 		}
 	}
 
@@ -59,6 +55,8 @@ int main(int argc, char *argv[])
 		if (input)
 		{
 			handle_user_input(input);
+
+			free(input);
 		} else
 		{
 			break;

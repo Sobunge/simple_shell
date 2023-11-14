@@ -14,9 +14,12 @@ extern char **environ;
 void execute_command(char input[]);
 void handle_path(char input[], char *args[], int i);
 void path(char *token, char *args[]);
-void exit_shell(void);
+void exit_shell(int status);
 void print_environment(void);
 char *custom_getline(void);
 void handle_user_input(char *input);
+void print_error(const char *message);
+void set_environment_variable(const char *variable, const char *value);
+void unset_environment_variable(const char *variable);
 
 #endif

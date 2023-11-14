@@ -3,7 +3,7 @@
 /**
  * exit_shell - a function that exits the shell
  */
-void exit_shell(void)
+void exit_shell(int status)
 {
-	exit(0);
+	exit(status);
 }
