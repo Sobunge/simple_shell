@@ -12,6 +12,6 @@ void unset_environment_variable(const char *variable)
 		print_error("Failed to unset environment variable");
 	} else
 	{
-		printf("Environment variable %s unset\n", variable);
+		perror("./shell");
 	}
 }

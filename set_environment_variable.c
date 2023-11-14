@@ -13,6 +13,6 @@ void set_environment_variable(const char *variable, const char *value)
 		print_error("Failed to set environment variable");
 	} else
 	{
-		printf("Environment variable %s set to %s\n", variable, value);
+		perror("./shell");
 	}
 }
