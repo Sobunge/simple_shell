@@ -1,6 +1,7 @@
 #ifndef FILE_MAIN
 #define FILE_MAIN
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
