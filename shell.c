@@ -4,6 +4,10 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+
+extern char **environ;
 
 /**
  * handle_input - hadle input function
@@ -31,11 +35,12 @@ void handle_input(char *command)
 		args[0] = command;
 		args[1] = NULL;
 
-		execve(command, args, NULL);
-
-		/* If execve returns, it means the command was not found */
-		perror("./shell");
-		exit(EXIT_FAILURE);
+		if (execve(args[0], args, environ) == -1)
+		{
+			/* If execve fails, print an error message */
+			perror("./shell");
+			exit(EXIT_FAILURE);
+		}
 	} else
 	{
 		/* In the parent process */
