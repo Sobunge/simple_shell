@@ -1,93 +1,75 @@
 #include "main.h"
 
 /**
- * handle_input - hadle input function
+ * main - Entry point for a simple UNIX command-line interpreter.
  *
- * @command: command argument
- */
-void handle_input(char *command)
-{
-
-	/* Fork a child process */
-	pid_t pid = fork();
-
-	if (pid < 0)
-	{
-		perror("./shell");
-		exit(EXIT_FAILURE);
-	} else if (pid == 0)
-	{
-		/*
-		* In the child process
-		* Execute the command using execve
-		*/
-		char *args[1];
-		args[0] = command;
-		args[1] = NULL;
-
-		if (execve(command, args, environ) == -1)
-		{
-			/* If execve fails, print an error message */
-			perror("./shell");
-			exit(EXIT_FAILURE);
-		}
-	} else
-	{
-		/* In the parent process */
-		int status;
-
-		waitpid(pid, &status, 0);
-	}
-}
-
-/**
- * is_whitespace - is white space function
+ * Description:
+ * - Initializes an infinite loop to continuously prompt for
+ *    and process user commands.
+ * @argc: number of arguments
+ * @argv: array of arguments
+ * - Displays the "#cisfun$ " prompt.
+ * - Reads user input into the 'input' array, removing the newline character.
+ * - Forks a child process to execute the user's command and distinguishes
+ *   between the parent and child processes using the 'pid' variable.
+ * - In the child process, it attempts to execute the user's command
+ *   using 'execve'.
+ *   - The 'args' array is used to hold the command to execute
+ *   and a 'NULL' pointer.
+ *   - If 'execve' succeeds, the command is executed; otherwise,
+ *   it prints an error message using 'perror' and exits the child
+ *   process with an error code.
+ * - In the parent process, it waits for the child process to complete
+ *   using 'waitpid', ensuring that the parent waits for the
+ *   child to finish execution before proceeding.
+ * - The loop continues, displaying the prompt again, and the shell waits
+ *   for the next user command.
  *
- * @str: comman
- */
-int is_whitespace(const char *str) {
-    while (*str != '\0') {
-        if (!isspace((unsigned char)*str)) {
-            return 0;
-        }
-        str++;
-    }
-    return 1;
-}
-
-/**
- * main - main function
  * Return:
  * - Returns 0 upon successful execution.
  */
-int main(void)
+
+int main(int argc, char *argv[])
 {
-	char command[100];
+	char *input;
+
+	if (argc > 1)
+	{
+		int i;
+
+		for (i = 1; i < argc; i++)
+		{
+			handle_user_input(argv[i]);
+		}
+	}
 
 	while (1)
 	{
+
 		/* Display the prompt */
 		printf("#cisfun$ ");
+		fflush(stdout);
 
-		if (fgets(command, sizeof(command), stdin) == NULL)
+		input = custom_getline();
+
+		if (input)
 		{
-			printf("\n");
-			/* Handle end of file (Ctrl+D) */
-			break;
-		}
+			if (strcmp(input, "") == 0)
+			{
+				/* Handle empty input if needed */
+				free(input);
+				continue;
+			}
 
-		/* Remove the newline character from the command */
-		command[strcspn(command, "\n")] = '\0';
+			handle_user_input(input);
+			free(input);
 
-		if (command[0] == '\0' || is_whitespace(command))
-		{
-			continue;
 		} else
 		{
-			handle_input(command);
+			break;
 		}
+		
 	}
 
 	return (0);
 }
-
