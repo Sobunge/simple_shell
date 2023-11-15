@@ -5,7 +5,7 @@
  *
  * @input: input variable
  */
-void execute_command(char input[])
+void execute_command(char input[], char argv[])
 {
 	pid_t pid;
 
@@ -27,7 +27,7 @@ void execute_command(char input[])
 		* If the loop completes,
 		* the command was not found in any directory in PATH
 		*/
-		perror("./shell");
+		perror(argv);
 		exit(1);
 	} else
 	{

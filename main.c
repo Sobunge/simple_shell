@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 
 		for (i = 1; i < argc; i++)
 		{
-			handle_user_input(argv[i]);
+			handle_user_input(argv[i], argv[0]);
 		}
 	}
 
@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 
 		if (input)
 		{
-			handle_user_input(input);
+			handle_user_input(input, argv[0]);
 			free(input);
 		} else
 			continue;

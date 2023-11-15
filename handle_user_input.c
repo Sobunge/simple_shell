@@ -7,7 +7,7 @@
  *
  *@input: input variable
  */
-void handle_user_input(char *input)
+void handle_user_input(char *input, char argv[])
 {
 	int status;
 	char command[MAX_INPUT_SIZE];
@@ -32,7 +32,7 @@ void handle_user_input(char *input)
 			set_environment_variable(variable, value);
 		} else
 		{
-			execute_command(input);
+			execute_command(input, argv);
 		}
 	} else if (sscanf(input, "%s %s", command, variable) == 2)
 	{
@@ -42,10 +42,10 @@ void handle_user_input(char *input)
 		} else
 		{
 
-			execute_command(input);
+			execute_command(input, argv);
 		}
 
 	} else
 		/* Execute command */
-		execute_command(input);
+		execute_command(input, argv);
 }
