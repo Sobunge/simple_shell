@@ -32,8 +32,6 @@
 int main(int argc, char *argv[])
 {
 	char *input;
-	size_t len = 0;
-	ssize_t nread;
 
 	if (argc > 1)
 	{
@@ -52,29 +50,16 @@ int main(int argc, char *argv[])
 		printf("#cisfun$ ");
 		fflush(stdout);
 
-		nread = getline(&input, &len, stdin);
+		input = custom_getline();
 
-		if (nread == -1)
+		if (input)
 		{
-			/* Handle EOF */
-			if (!feof(stdin))
-			{
-				perror("./shell");
-			}
-
+			handle_user_input(input);
+			free(input);
+		} else
 			break;
-		}
 
-		/* Remove the newline character */
-		input[strcspn(input, "\n")] = '\0';
 
-		if (strcmp(input, "") == 0)
-		{
-			/* Handle empty input if neededi */
-			continue;
-		}
-
-		handle_user_input(input);
 	}
 
 	free(input);
