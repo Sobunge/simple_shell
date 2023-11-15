@@ -32,7 +32,7 @@ void handle_user_input(char *input)
 			set_environment_variable(variable, value);
 		} else
 		{
-			perror("./shell");
+			execute_command(input);
 		}
 	} else if (sscanf(input, "%s %s", command, variable) == 2)
 	{
@@ -41,8 +41,10 @@ void handle_user_input(char *input)
 			unset_environment_variable(variable);
 		} else
 		{
-			perror("./shell");
+
+			execute_command(input);
 		}
+
 	} else
 		/* Execute command */
 		execute_command(input);
