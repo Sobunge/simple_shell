@@ -10,16 +10,22 @@
  */
 void handle_user_input(char *input, char argv[])
 {
-	int status;
+	/*
+	 * int status;
 	char command[MAX_INPUT_SIZE];
 	char variable[MAX_INPUT_SIZE];
 	char value[MAX_INPUT_SIZE];
+	*
+	*/
 
 	/* Remove the newline character from the input */
 	input[strcspn(input, "\n")] = '\0';
 
+	execute_command(input, argv);
+}
 	/* Checks if the input is exit */
-	if (sscanf(input, "exit %d", &status) == 1)
+	/*
+	 * if (sscanf(input, "exit %d", &status) == 1)
 	{
 		exit_shell(status);
 	} else if (strcmp(input, "exit") == 0)
@@ -47,6 +53,8 @@ void handle_user_input(char *input, char argv[])
 		}
 
 	} else
+	*
+	*/
 		/* Execute command */
-		execute_command(input, argv);
-}
+		/* execute_command(input, argv); */
+/*} */

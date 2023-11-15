@@ -14,7 +14,7 @@
 extern char **environ;
 
 void execute_command(char input[], char argv[]);
-void handle_path(char input[], char *args[], int i);
+void handle_path(char input[], char *args[], int i, char argv[]);
 void path(char *token, char *args[]);
 void exit_shell(int status);
 void print_environment(void);

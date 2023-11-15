@@ -15,7 +15,7 @@ void execute_command(char input[], char argv[])
 
 	if (pid < 0)
 	{
-		perror("Fork failed");
+		perror(argv);
 		exit(1);
 	} else if (pid == 0)
 	{
@@ -23,7 +23,7 @@ void execute_command(char input[], char argv[])
 		char *args[64];
 		int i = 0;
 
-		handle_path(input, args, i);
+		handle_path(input, args, i, argv);
 		/*
 		* If the loop completes,
 		* the command was not found in any directory in PATH

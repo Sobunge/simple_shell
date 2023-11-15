@@ -5,9 +5,10 @@
  *
  * @input: input variable
  * @args: string entered
+ * @argv: argv argument
  * @i: integer i
  */
-void handle_path(char input[], char *args[], int i)
+void handle_path(char input[], char *args[], int i, char argv[])
 {
 	/* Tokenize the input */
 	char *token;
@@ -20,14 +21,16 @@ void handle_path(char input[], char *args[], int i)
 	}
 	args[i] = NULL;
 
-	if (strchr(args[0], '/') == NULL)
+	/*
+	 * if (strchr(args[0], '/') == NULL)
 	{
 		path(token, args);
 	} else
-	{
+	{*
+	*/
 		/* The command contains a / character, so it's already a full path */
-		execve(args[0], args, NULL);
-		perror("./shell");
+		execve(input, args, NULL);
+		perror(argv);
 		exit(1);
-	}
+	/*}*/
 }
