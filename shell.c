@@ -10,7 +10,7 @@
  *
  * @command: command argument
  */
-void handle_input(char *command[])
+void handle_input(char *command)
 {
 
 	/* Fork a child process */
@@ -26,7 +26,10 @@ void handle_input(char *command[])
 		* In the child process
 		* Execute the command using execve
 		*/
-		char *args[] = {command, NULL};
+		char *args[1];
+
+		args[0] = command;
+		args[1] = NULL;
 
 		execve(command, args, NULL);
 
@@ -49,13 +52,12 @@ void handle_input(char *command[])
  */
 int main(void)
 {
+	char command[100];
+
 	while (1)
 	{
 		/* Display the prompt */
 		printf("#cisfun$ ");
-
-		/* Read the user's input */
-		char command[100];
 
 		if (fgets(command, sizeof(command), stdin) == NULL)
 			/* Handle end of file (Ctrl+D) */
