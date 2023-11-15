@@ -60,8 +60,11 @@ int main(void)
 		printf("#cisfun$ ");
 
 		if (fgets(command, sizeof(command), stdin) == NULL)
+		{
+			printf("\n");
 			/* Handle end of file (Ctrl+D) */
 			break;
+		}
 
 		/* Remove the newline character from the command */
 		command[strcspn(command, "\n")] = '\0';
