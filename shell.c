@@ -1,13 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-
-extern char **environ;
+#include "main.h"
 
 /**
  * handle_input - hadle input function
@@ -31,11 +22,10 @@ void handle_input(char *command)
 		* Execute the command using execve
 		*/
 		char *args[1];
-
 		args[0] = command;
 		args[1] = NULL;
 
-		if (execve(args[0], args, environ) == -1)
+		if (execve(command, args, environ) == -1)
 		{
 			/* If execve fails, print an error message */
 			perror("./shell");
@@ -48,6 +38,21 @@ void handle_input(char *command)
 
 		waitpid(pid, &status, 0);
 	}
+}
+
+/**
+ * is_whitespace - is white space function
+ *
+ * @str: comman
+ */
+int is_whitespace(const char *str) {
+    while (*str != '\0') {
+        if (!isspace((unsigned char)*str)) {
+            return 0;
+        }
+        str++;
+    }
+    return 1;
 }
 
 /**
@@ -74,7 +79,13 @@ int main(void)
 		/* Remove the newline character from the command */
 		command[strcspn(command, "\n")] = '\0';
 
-		handle_input(command);
+		if (command[0] == '\0' || is_whitespace(command))
+		{
+			continue;
+		} else
+		{
+			handle_input(command);
+		}
 	}
 
 	return (0);
