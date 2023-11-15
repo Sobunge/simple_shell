@@ -1,67 +1,72 @@
-#include "main.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 /**
- * main - Entry point for a simple UNIX command-line interpreter.
+ * handle_input - hadle input function
  *
- * Description:
- * - Initializes an infinite loop to continuously prompt for
- *    and process user commands.
- * @argc: number of arguments
- * @argv: array of arguments
- * - Displays the "#cisfun$ " prompt.
- * - Reads user input into the 'input' array, removing the newline character.
- * - Forks a child process to execute the user's command and distinguishes
- *   between the parent and child processes using the 'pid' variable.
- * - In the child process, it attempts to execute the user's command
- *   using 'execve'.
- *   - The 'args' array is used to hold the command to execute
- *   and a 'NULL' pointer.
- *   - If 'execve' succeeds, the command is executed; otherwise,
- *   it prints an error message using 'perror' and exits the child
- *   process with an error code.
- * - In the parent process, it waits for the child process to complete
- *   using 'waitpid', ensuring that the parent waits for the
- *   child to finish execution before proceeding.
- * - The loop continues, displaying the prompt again, and the shell waits
- *   for the next user command.
- *
+ * @command: command argument
+ */
+void handle_input(char *command[])
+{
+
+	/* Fork a child process */
+	pid_t pid = fork();
+
+	if (pid < 0)
+	{
+		perror("./shell");
+		exit(1);
+	} else if (pid == 0)
+	{
+		/*
+		* In the child process
+		* Execute the command using execve
+		*/
+		char *args[] = {command, NULL};
+
+		execve(command, args, NULL);
+
+		/* If execve returns, it means the command was not found */
+		perror("./shell");
+		exit(1);
+	} else
+	{
+		/* In the parent process */
+		int status;
+
+		waitpid(pid, &status, 0);
+	}
+}
+
+/**
+ * main - main function
  * Return:
  * - Returns 0 upon successful execution.
  */
-
-int main(int argc, char *argv[])
+int main(void)
 {
-	char *input;
-
-	if (argc > 1)
-	{
-		int i;
-
-		for (i = 1; i < argc; i++)
-		{
-			handle_user_input(argv[i]);
-		}
-	}
-
 	while (1)
 	{
-
 		/* Display the prompt */
 		printf("#cisfun$ ");
-		fflush(stdout);
 
-		input = custom_getline();
+		/* Read the user's input */
+		char command[100];
 
-		if (input)
-		{
-			handle_user_input(input);
-
-			free(input);
-		} else
-		{
+		if (fgets(command, sizeof(command), stdin) == NULL)
+			/* Handle end of file (Ctrl+D) */
 			break;
-		}
+
+		/* Remove the newline character from the command */
+		command[strcspn(command, "\n")] = '\0';
+
+		handle_input(command);
 	}
 
 	return (0);
 }
+
