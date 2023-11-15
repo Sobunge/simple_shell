@@ -34,7 +34,7 @@ char *custom_getline(void)
 		}
 
 		c = buffer[buffer_index++];
-		if (c == '\n' || c == EOF)
+		if (c == EOF || c == '\n')
 			break;
 
 		line = realloc(line, ++line_size);

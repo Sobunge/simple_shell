@@ -54,14 +54,11 @@ int main(int argc, char *argv[])
 
 		if (input)
 		{
-			if (strcmp(input, "") == 0)
+			if (input[0] != '\0')
 			{
-				/* Handle empty input if needed */
-				free(input);
-				continue;
+				handle_user_input(input);
 			}
 
-			handle_user_input(input);
 			free(input);
 
 		} else
