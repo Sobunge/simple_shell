@@ -3,6 +3,7 @@
 /**
  * execute_command - a function that executes commands
  *
+ * @argv: argv argument
  * @input: input variable
  */
 void execute_command(char input[], char argv[])

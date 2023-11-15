@@ -5,6 +5,7 @@
 /**
  * handle_user_input - a function that handles commands entered by user
  *
+ * @argv: argv variable
  *@input: input variable
  */
 void handle_user_input(char *input, char argv[])
