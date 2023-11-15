@@ -24,6 +24,5 @@ void print_error(const char *message);
 void set_environment_variable(const char *variable, const char *value);
 void unset_environment_variable(const char *variable);
 char *_strtok(char *str, const char *delim);
-int is_whitespace(const char *str);
 
 #endif
