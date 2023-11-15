@@ -19,7 +19,7 @@ void handle_input(char *command)
 	if (pid < 0)
 	{
 		perror("./shell");
-		exit(1);
+		exit(EXIT_FAILURE);
 	} else if (pid == 0)
 	{
 		/*
@@ -35,7 +35,7 @@ void handle_input(char *command)
 
 		/* If execve returns, it means the command was not found */
 		perror("./shell");
-		exit(1);
+		exit(EXIT_FAILURE);
 	} else
 	{
 		/* In the parent process */
