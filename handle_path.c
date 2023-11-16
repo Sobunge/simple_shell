@@ -23,7 +23,7 @@ void handle_path(char input[], char *args[], int i, char argv[])
 
 	if (strchr(args[0], '/') == NULL)
 	{
-		path(token, args);
+		path(token, args, argv);
 	} else
 	{
 		/* The command contains a / character, so it's already a full path */

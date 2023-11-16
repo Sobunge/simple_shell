@@ -4,9 +4,10 @@
  * path - a function that handles the path
  *
  * @token: token variable
+ * @argv: argv argument
  * @args: args variable
  */
-void path(char *token, char *args[])
+void path(char *token, char *args[], char argv[])
 {
 	char *path;
 
@@ -30,7 +31,7 @@ void path(char *token, char *args[])
 		if (access(commandPath, X_OK) == 0)
 		{
 			execve(commandPath, args, NULL);
-			perror("./shell");
+			perror(argv);
 			exit(1);
 		}
 

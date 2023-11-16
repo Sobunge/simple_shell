@@ -5,14 +5,16 @@
  *
  * @variable: variable argument
  * @value: value argument
+ * @argv: argv variable
  */
-void set_environment_variable(const char *variable, const char *value)
+void set_environment_variable(const char *variable, const char *value,
+		char argv[])
 {
 	if (setenv(variable, value, 1) != 0)
 	{
 		print_error("Failed to set environment variable");
 	} else
 	{
-		perror("./shell");
+		perror(argv);
 	}
 }
