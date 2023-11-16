@@ -21,7 +21,8 @@ void print_environment(void);
 char *custom_getline(void);
 void handle_user_input(char *input, char argv[]);
 void print_error(const char *message);
-void set_environment_variable(const char *variable, const char *value, char argv[]);
+void set_environment_variable(const char *variable,
+		const char *value, char argv[]);
 void unset_environment_variable(const char *variable, char argv[]);
 char *_strtok(char *str, const char *delim);
 void execute_command(char input[], char argv[]);
