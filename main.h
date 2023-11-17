@@ -28,7 +28,5 @@ char *_strtok(char *str, const char *delim);
 void execute_command(char input[], char argv[]);
 void tokenizer(char argv[], int status, char *token, char *delim);
 void execute_input(char *token, char argv[]);
-void execute_piped_commands(char *first_command, char *second_command);
-void check_pipe(char *pipe_position, char *input);
 
 #endif

@@ -21,7 +21,7 @@ void path(char *token, char *args[], char argv[])
 	}
 
 	/* Try to execute the command in directories listed in PATH */
-	token = strtok(path, ":");
+	token = _strtok(path, ":");
 	while (token != NULL)
 	{
 		char commandPath[256];
@@ -35,6 +35,6 @@ void path(char *token, char *args[], char argv[])
 			exit(1);
 		}
 
-		token = strtok(NULL, ":");
+		token = _strtok(NULL, ":");
 	}
 }

@@ -17,12 +17,12 @@ void execute_command(char input[], char argv[])
 	char final_command[100];
 
 	/* Tokenize the input */
-	token = strtok(input, delim);
+	token = _strtok(input, delim);
 
 	while (token != NULL)
 	{
 
-		next_command = strtok(NULL, delim);
+		next_command = _strtok(NULL, delim);
 
 		if (next_command != NULL)
 		{
@@ -37,7 +37,7 @@ void execute_command(char input[], char argv[])
 			tokenizer(argv, status, token, delim);
 		}
 
-		token = strtok(NULL, delim);
+		token = _strtok(NULL, delim);
 	}
 
 }
