@@ -27,7 +27,7 @@ void handle_path(char input[], char *args[], int i, char argv[])
 	} else
 	{
 		/* The command contains a / character, so it's already a full path */
-		execve(input, args, NULL);
+		execve(input, args, environ);
 		perror(argv);
 		exit(1);
 	}

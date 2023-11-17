@@ -30,7 +30,7 @@ void path(char *token, char *args[], char argv[])
 		/* Check if the command exists in the current directory */
 		if (access(commandPath, X_OK) == 0)
 		{
-			execve(commandPath, args, NULL);
+			execve(commandPath, args, environ);
 			perror(argv);
 			exit(1);
 		}

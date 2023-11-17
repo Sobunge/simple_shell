@@ -14,7 +14,7 @@ void execute_command(char input[], char argv[])
 	char *next_command;
 
 	/* Tokenize the input */
-	token = _strtok(input, delim);
+	token = strtok(input, delim);
 
 	while (token != NULL)
 	{
@@ -22,7 +22,7 @@ void execute_command(char input[], char argv[])
 		if (strcmp(token, "|") == 0)
 		{/* Handle pipe, execute the next command with piping */
 			/* Extract the next command after the pipe symbol */
-			next_command = _strtok(NULL, delim);
+			next_command = strtok(NULL, delim);
 
 			if (next_command != NULL)
 			{
@@ -36,7 +36,7 @@ void execute_command(char input[], char argv[])
 
 		 tokenizer(argv, status, token, delim);
 
-		token = _strtok(NULL, delim);
+		token = strtok(NULL, delim);
 	}
 }
 
