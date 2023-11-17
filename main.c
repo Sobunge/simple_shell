@@ -31,12 +31,44 @@
 
 int main(int argc, char *argv[])
 {
-
-	/* Buffer to store input */
 	char *input = NULL;
-	int i;
-
+	
 	if (argc > 1)
+	{
+		int i;
+
+		/* Non-interactive mode */
+		for (i = 1; i < argc; i++)
+			handle_user_input(argv[i], argv[0]);
+	} else
+	{
+		/* Interactive mode */
+		while (1)
+		{
+			if (isatty(fileno(stdin)))
+			{
+				printf("#cisfun$ ");
+				fflush(stdout);
+			}
+
+			input = custom_getline();
+
+			if (input)
+                        {
+                                /* Display each entered input */
+                                handle_user_input(input, argv[0]);
+
+                        } else
+                                break;
+		}
+	}   
+        
+	
+	/* Buffer to store input */
+	/*char *input = NULL;*/
+	/*int i; */
+
+	/*if (argc > 1)
 	{
 		for (i = 1; i < argc; i++)
 			handle_user_input(argv[i], argv[0]);
@@ -51,19 +83,20 @@ int main(int argc, char *argv[])
 
 		while (1)
 		{
+			printf("#cisfun$ ");
 
 			input = custom_getline();
 
 			if (input)
-			{
+			{*/
 				/* Display each entered input */
-				handle_user_input(input, argv[0]);
-				free(input);
+				/*handle_user_input(input, argv[0]);
+
 			} else
 				break;
 		}
 
-	}
+	} */
 
 	/* Free the allocated memory */
 	free(input);
