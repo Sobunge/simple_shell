@@ -28,6 +28,7 @@ void handle_path(char input[], char *args[], int i, char argv[])
 	{
 		/* The command contains a / character, so it's already a full path */
 		execve(input, args, environ);
+		printf("%s: 1 %s: Permission denied", argv, args[0]);
 		perror(argv);
 		exit(1);
 	}
