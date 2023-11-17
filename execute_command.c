@@ -24,14 +24,15 @@ void execute_command(char input[], char argv[])
 
 		next_command = strtok(NULL, delim);
 
-		if(next_command != NULL){
-			
+		if (next_command != NULL)
+		{
+
 			strcpy(final_command, token);
 			strcat(final_command, space);
 			strcat(final_command, next_command);
 			execute_input(final_command, argv);
-			
-		}else
+
+		} else
 		{
 			tokenizer(argv, status, token, delim);
 		}

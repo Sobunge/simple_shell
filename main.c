@@ -34,41 +34,32 @@ int main(int argc, char *argv[])
 
 	/* Buffer to store input */
 	char *input = NULL;
-	
+	int i;
+
+	if (argc > 1)
+	{
+		for (i = 1; i < argc; i++)
+			handle_user_input(argv[i], argv[0]);
+	}
+
 	input = custom_getline();
 
 	handle_user_input(input, argv[0]);
 
-	if(input == NULL)
+	if (input != NULL)
 	{
-		/* execute input from terminal */
-		printf("Terminal input: %s\n", input);
-	}else{
 
-		while(1)
-		{	
-			if (argc > 1)
-			{
-				int i;
-
-				for (i = 1; i < argc; i++)
-				{
-					/* Displaying each cmd args */
-					printf("Command: %s\n", argv[i]);
-				}
-			}
-
-			/* Display the prompt */
-			fflush(stdout);
+		while (1)
+		{
 
 			input = custom_getline();
 
-			if(input)
+			if (input)
 			{
 				/* Display each entered input */
 				handle_user_input(input, argv[0]);
 				free(input);
-			}else
+			} else
 				break;
 		}
 
