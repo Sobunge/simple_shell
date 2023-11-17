@@ -31,37 +31,51 @@
 
 int main(int argc, char *argv[])
 {
-	char *input;
 
-	if (argc > 1)
+	/* Buffer to store input */
+	char *input = NULL;
+	
+	input = custom_getline();
+
+	handle_user_input(input, argv[0]);
+
+	if(input == NULL)
 	{
-		int i;
+		/* execute input from terminal */
+		printf("Terminal input: %s\n", input);
+	}else{
 
-		for (i = 1; i < argc; i++)
-		{
-			handle_user_input(argv[i], argv[0]);
+		while(1)
+		{	
+			if (argc > 1)
+			{
+				int i;
+
+				for (i = 1; i < argc; i++)
+				{
+					/* Displaying each cmd args */
+					printf("Command: %s\n", argv[i]);
+				}
+			}
+
+			/* Display the prompt */
+			printf("#cisfun$ ");
+			fflush(stdout);
+
+			input = custom_getline();
+
+			if(input)
+			{
+				/* Display each entered input */
+				printf("Entered input: %s\n", input);
+				free(input);
+			}else
+				break;
 		}
-	}
-
-	while (1)
-	{
-
-		/* Display the prompt */
-		printf("#cisfun$ ");
-		fflush(stdout);
-
-		input = custom_getline();
-
-		if (input)
-		{
-			handle_user_input(input, argv[0]);
-			free(input);
-		} else
-			break;
-
 
 	}
 
+	/* Free the allocated memory */
 	free(input);
 
 	return (0);

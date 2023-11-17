@@ -31,8 +31,8 @@ void handle_user_input(char *input, char argv[])
 		set_environment_variable(variable, value, argv);
 	else if ((sscanf(input, "%s %s", command, variable) == 2)
 			&& (strcmp(command, "unsetenv") == 0))
-		unset_environment_variable(variable, argv);
-	else
+		unset_environment_variable(variable, argv);	
+       	else
 		/* Execute command */
 		execute_command(input, argv);
 }

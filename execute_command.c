@@ -11,13 +11,30 @@ void execute_command(char input[], char argv[])
 	char *token;
 	char *delim = " \t\n";
 	int status = 0;  /* Default status for logical AND */
+	char *next_command;
 
 	/* Tokenize the input */
 	token = _strtok(input, delim);
 
 	while (token != NULL)
 	{
-		tokenizer(argv, status, token, delim);
+
+		if (strcmp(token, "|") == 0)
+		{/* Handle pipe, execute the next command with piping */
+			/* Extract the next command after the pipe symbol */
+			next_command = _strtok(NULL, delim);
+
+			if (next_command != NULL)
+			{
+
+				printf("Second command: %s \n", next_command);
+			} else
+			{
+				fprintf(stderr, "Error: Missing command after pipe '|'\n");
+			}
+		}
+
+		 tokenizer(argv, status, token, delim);
 
 		token = _strtok(NULL, delim);
 	}
