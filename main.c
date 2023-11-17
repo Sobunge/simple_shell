@@ -59,7 +59,6 @@ int main(int argc, char *argv[])
 			}
 
 			/* Display the prompt */
-			printf("#cisfun$ ");
 			fflush(stdout);
 
 			input = custom_getline();
@@ -67,7 +66,7 @@ int main(int argc, char *argv[])
 			if(input)
 			{
 				/* Display each entered input */
-				printf("Entered input: %s\n", input);
+				handle_user_input(input, argv[0]);
 				free(input);
 			}else
 				break;
